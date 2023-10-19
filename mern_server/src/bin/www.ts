@@ -16,7 +16,9 @@ const port = normalizePort('3001');
 app.set('port', port);
 
 mongoose
-  .connect(`mongodb://localhost:27017`)
+  .connect(
+    typeof process.env.DB_URL === 'string' ? process.env.DB_URL : 'mongodb://localhost:27017'
+  )
   .then(() => console.log('Connected to mongo server.'))
   .catch((e) => console.log(e));
 

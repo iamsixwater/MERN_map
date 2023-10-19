@@ -7,21 +7,21 @@ import MarkersContainer from '../../components/MarkersContainer';
 import { useEffect } from 'react';
 
 function Home() {
-    const setInfos = useSetAtom(infosAtom);
+  const setInfos = useSetAtom(infosAtom);
 
-    useEffect(() => {
-        if(infos) {
-            setInfos(infos);
-        }
-    }, []);
-    
-    return (
-        <>
-            <Navigation />
-            <MapContainer />
-            <MarkersContainer />
-        </>
-    );
+  useEffect(() => {
+    if (infos) {
+      setInfos(infos);
+    }
+  }, []);
+
+  return (
+    <>
+      <Navigation />
+      <MapContainer />
+      <MarkersContainer />
+    </>
+  );
 }
 
 export default Home;
