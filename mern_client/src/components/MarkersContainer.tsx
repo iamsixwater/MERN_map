@@ -45,6 +45,7 @@ function MarkersContainer({ type = 'home' }: MarkersContainerProps) {
           content={'<div class="marker" />'}
           onClick={() => {
             setSelectInfo(info);
+            map.panTo(info.position);
           }}
         />
       ))}

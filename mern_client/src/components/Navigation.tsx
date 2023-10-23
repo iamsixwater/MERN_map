@@ -5,7 +5,7 @@ import Button from './common/Button';
 import Divider from './common/Divider';
 import Block from './common/Block';
 import { GoPlus } from 'react-icons/go';
-import { useAtom, useSetAtom } from 'jotai';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { selectAtom } from '../atoms/search';
 import { FiArrowLeft, FiSearch } from 'react-icons/fi';
 import Input from './common/Input';
@@ -14,6 +14,7 @@ import { infosAtom, selectInfoAtom } from '../atoms/info';
 import { infos } from '../data/infos';
 import { useQuery } from 'react-query';
 import { searchKeyword } from '../apis/search';
+import { mapAtom } from '../atoms/map';
 
 interface NavigationProps {
   type?: 'home' | 'upload';
@@ -24,6 +25,7 @@ function Navigation({ type = 'home' }: NavigationProps) {
   const { value, onChange } = useInput('');
   const setInfos = useSetAtom(infosAtom);
   const setSelectInfo = useSetAtom(selectInfoAtom);
+  const map = useAtomValue(mapAtom);
 
   const [keyword, setKeyword] = useState('');
   const { status } = useQuery(
@@ -35,6 +37,19 @@ function Navigation({ type = 'home' }: NavigationProps) {
       onSuccess: (infos) => {
         setInfos(infos);
         setSelectInfo(null);
+
+        if (!map) return;
+
+        const bounds = new naver.maps.LatLngBounds(
+          new naver.maps.LatLng(0, 0),
+          new naver.maps.LatLng(0, 0)
+        );
+
+        infos.forEach((info) => {
+          bounds.extend(info.position);
+        });
+
+        map.panToBounds(bounds);
       },
     }
   );
