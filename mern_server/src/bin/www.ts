@@ -7,6 +7,8 @@ import app from '../app';
 import debug from 'debug';
 import http from 'http';
 import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+dotenv.config({ path: __dirname + '/../../.env' });
 
 /**
  * Get port from environment and store in Express.

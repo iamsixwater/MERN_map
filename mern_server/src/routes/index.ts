@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import infosController from '../controller/infosController';
+import searchController from '../controller/searchController';
 
 const router = express.Router();
 
@@ -14,5 +15,8 @@ router.post('/infos', infosController.createInfo);
 
 // search position data
 router.get('/infos', infosController.getInfos);
+
+// search keyword
+router.get('/search', searchController.searchKeyword);
 
 export default router;
